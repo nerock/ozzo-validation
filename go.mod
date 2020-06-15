@@ -1,4 +1,4 @@
-module github.com/nerock/ozzo-validation/v4
+module github.com/nerock/ozzo-validation
 
 go 1.13
 

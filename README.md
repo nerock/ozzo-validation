@@ -36,8 +36,8 @@ or `validation.ValidateStruct()` to validate the value.
 Run the following command to install the package:
 
 ```
-go get github.com/nerock/ozzo-validation/v4
-go get github.com/nerock/ozzo-validation/v4/is
+go get github.com/nerock/ozzo-validation
+go get github.com/nerock/ozzo-validation/is
 ```
 
 ### Validating a Simple Value
@@ -50,8 +50,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/nerock/ozzo-validation/v4"
-	"github.com/nerock/ozzo-validation/v4/is"
+	"github.com/nerock/ozzo-validation"
+	"github.com/nerock/ozzo-validation/is"
 )
 
 func main() {
@@ -86,8 +86,8 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/nerock/ozzo-validation/v4"
-	"github.com/nerock/ozzo-validation/v4/is"
+	"github.com/nerock/ozzo-validation"
+	"github.com/nerock/ozzo-validation/is"
 )
 
 type Address struct {
@@ -449,7 +449,7 @@ instance of the rule. For example, the `Required` rule uses the pre-defined erro
 during the application initialization:
 
 ```go
-import "github.com/nerock/ozzo-validation/v4"
+import "github.com/nerock/ozzo-validation"
 
 validation.ErrRequired = validation.ErrRequired.SetMessage("the value is required")
 ```

@@ -7,7 +7,7 @@ import (
 	"regexp"
 
 	validation "github.com/nerock/ozzo-validation"
-	"github.com/nerock/ozzo-validation/v4/is"
+	"github.com/nerock/ozzo-validation/is"
 )
 
 type Address struct {

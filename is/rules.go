@@ -9,7 +9,7 @@ import (
 	"regexp"
 	"unicode"
 
-	validation "github.com/nerock/ozzo-validation/v4"
+	validation "github.com/nerock/ozzo-validation"
 
 	"github.com/asaskevich/govalidator"
 )

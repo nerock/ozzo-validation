@@ -7,6 +7,8 @@
 
 ## Description
 
+This is a fork of [ozzo-validation](https://github.com/go-ozzo/ozzo-validation) to return all validation errors found in every field instead just one error per field.
+
 ozzo-validation is a Go package that provides configurable and extensible data validation capabilities.
 It has the following features:
 

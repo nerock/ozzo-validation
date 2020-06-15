@@ -57,7 +57,7 @@ func TestValidate(t *testing.T) {
 	// with rules
 	err := Validate("123", &validateAbc{}, &validateXyz{})
 	if assert.NotNil(t, err) {
-		assert.Equal(t, "error abc", err.Error())
+		assert.Equal(t, "error abc,error xyz", err.Error())
 	}
 	err = Validate("abc", &validateAbc{}, &validateXyz{})
 	if assert.NotNil(t, err) {

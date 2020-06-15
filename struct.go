@@ -100,6 +100,7 @@ func validateStruct(ctx context.Context, structPtr interface{}, fields ...*Field
 		} else {
 			err = ValidateWithContext(ctx, fv.Elem().Interface(), fr.rules...)
 		}
+
 		if err != nil {
 			if ie, ok := err.(InternalError); ok && ie.InternalError() != nil {
 				return err

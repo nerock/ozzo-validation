@@ -36,6 +36,9 @@ type (
 	// values are Error or Errors (for map,slice and array error value is Errors).
 	Errors map[string]error
 
+	// ErrorList represents a list of validation errors of a field
+	ErrorList []error
+
 	// InternalError represents an error that should NOT be treated as a validation error.
 	InternalError interface {
 		error
@@ -166,12 +169,36 @@ func (es Errors) Filter() error {
 	return es
 }
 
+func (el ErrorList) Error() string {
+	sb := strings.Builder{}
+	for i, e := range el {
+		sb.WriteString(e.Error())
+		if i < len(el) - 1 {
+			sb.WriteRune(',')
+		}
+	}
+
+	return sb.String()
+}
+
 // NewError create new validation error.
 func NewError(code, message string) Error {
 	return ErrorObject{
 		code:    code,
 		message: message,
 	}
+}
+
+// IsInternalError returns true if the error is an internal one isntead of a validation error
+func IsInternalError(err error) bool {
+	_, ok := err.(InternalError)
+	return ok
+}
+
+// IsValidationError returns true if the error returned is a map of strings and errors
+func IsValidationError(err error) bool {
+	_, ok := err.(Errors)
+	return ok
 }
 
 // Assert that our ErrorObject implements the Error interface.

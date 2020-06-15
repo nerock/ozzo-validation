@@ -68,7 +68,7 @@ func TestAbsentRule_When(t *testing.T) {
 
 	r = Nil.When(true)
 	err = Validate(42, r)
-	assert.Equal(t, ErrNil, err)
+	assert.Equal(t, ErrorList{ErrNil}, err)
 }
 
 func Test_absentRule_Error(t *testing.T) {

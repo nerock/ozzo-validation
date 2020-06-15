@@ -66,13 +66,25 @@ var (
 // 3. If the value being validated is a map/slice/array, and the element type implements `Validatable`,
 //    for each element call the element value's `Validate()`. Return with the validation result.
 func Validate(value interface{}, rules ...Rule) error {
+	var el ErrorList
+	skip := false
 	for _, rule := range rules {
 		if _, ok := rule.(*skipRule); ok {
-			return nil
+			skip = true
+			break
 		}
 		if err := rule.Validate(value); err != nil {
-			return err
+			if IsInternalError(err) {
+				return err
+			}
+			el = append(el, err)
 		}
+	}
+
+	if len(el) > 0 {
+		return el
+	} else if skip {
+		return nil
 	}
 
 	rv := reflect.ValueOf(value)
@@ -114,17 +126,32 @@ func Validate(value interface{}, rules ...Rule) error {
 // 5. If the value being validated is a map/slice/array, and the element type implements `Validatable`,
 //    for each element call the element value's `Validate()`. Return with the validation result.
 func ValidateWithContext(ctx context.Context, value interface{}, rules ...Rule) error {
+	var el ErrorList
+	skip := false
 	for _, rule := range rules {
 		if _, ok := rule.(*skipRule); ok {
-			return nil
+			skip = true
+			break
 		}
 		if rc, ok := rule.(RuleWithContext); ok {
 			if err := rc.ValidateWithContext(ctx, value); err != nil {
-				return err
+				if IsInternalError(err) {
+					return err
+				}
+				el = append(el, err)
 			}
 		} else if err := rule.Validate(value); err != nil {
-			return err
+			if IsInternalError(err) {
+				return err
+			}
+			el = append(el, err)
 		}
+	}
+
+	if len(el) > 0 {
+		return el
+	} else if skip {
+		return nil
 	}
 
 	rv := reflect.ValueOf(value)

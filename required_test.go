@@ -42,7 +42,7 @@ func TestRequiredRule_When(t *testing.T) {
 
 	r = Required.When(true)
 	err = Validate(nil, r)
-	assert.Equal(t, ErrRequired, err)
+	assert.Equal(t, ErrorList{ErrRequired}, err)
 }
 
 func TestNilOrNotEmpty(t *testing.T) {
